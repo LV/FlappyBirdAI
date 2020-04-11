@@ -1,6 +1,7 @@
 import pygame
 from defs import *
 from pipe import PipeCollection
+from bird import Bird
 
 def update_label(data, title, font, x, y, gameDisplay):
 	label = font.render('{} {}'.format(title, data), 1, DATA_FONT_COLOR) # 1 enables anti-aliasing
@@ -24,7 +25,8 @@ def run_game():
 	bgImg = pygame.image.load(BG_FILENAME)
 	pipes = PipeCollection(gameDisplay)
 	pipes.create_new_set()
-	
+	bird = Bird(gameDisplay)
+
 	label_font = pygame.font.SysFont('monospace', DATA_FONT_SIZE)
 
 	clock = pygame.time.Clock()
@@ -43,9 +45,13 @@ def run_game():
 			elif event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					running = False
+				if event.key == pygame.K_SPACE:
+					bird.jump()
 
 		update_data_labels(gameDisplay, dt, game_time, label_font) 
 		pipes.update(dt)
+		bird.update(dt)
+
 		pygame.display.update()
 
 
