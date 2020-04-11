@@ -1,6 +1,6 @@
 import pygame
 from defs import *
-from pipe import Pipe
+from pipe import PipeCollection
 
 def update_label(data, title, font, x, y, gameDisplay):
 	label = font.render('{} {}'.format(title, data), 1, DATA_FONT_COLOR) # 1 enables anti-aliasing
@@ -22,13 +22,14 @@ def run_game():
 
 	running = True
 	bgImg = pygame.image.load(BG_FILENAME)
+	pipes = PipeCollection(gameDisplay)
+	pipes.create_new_set()
+	
 	label_font = pygame.font.SysFont('monospace', DATA_FONT_SIZE)
 
 	clock = pygame.time.Clock()
 	dt = 0
-	game_time = 0 
-
-	pi = Pipe(gameDisplay, DISPLAY_W, 300, PIPE_LOWER)
+	game_time = 0
 
 	while running:
 		dt = clock.tick(FPS) # synchronizes change in time with FPS
@@ -44,7 +45,7 @@ def run_game():
 					running = False
 
 		update_data_labels(gameDisplay, dt, game_time, label_font) 
-		pi.update(dt)
+		pipes.update(dt)
 		pygame.display.update()
 
 
