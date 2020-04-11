@@ -8,12 +8,13 @@ def update_label(data, title, font, x, y, gameDisplay):
 	gameDisplay.blit(label, (x,y))
 	return y
 
-def update_data_labels(gameDisplay, dt, game_time, font):
+def update_data_labels(gameDisplay, dt, game_time, num_lives, font):
 	y_pos = 10
 	gap = 20
 	x_pos = 10
 	y_pos = update_label(round(1000/dt,2), 'FPS', font, x_pos, y_pos + gap, gameDisplay)
-	y_pos = update_label(round(game_time/1000,2),'Game time', font, x_pos, y_pos + gap, gameDisplay)
+	y_pos = update_label(round(game_time/1000,2), 'Game time', font, x_pos, y_pos + gap, gameDisplay)
+	y_pos = update_label(num_lives, 'Lives', font, x_pos, y_pos + gap, gameDisplay)
 
 
 def run_game():
@@ -32,6 +33,7 @@ def run_game():
 	clock = pygame.time.Clock()
 	dt = 0
 	game_time = 0
+	num_lives = 1
 
 	while running:
 		dt = clock.tick(FPS) # synchronizes change in time with FPS
@@ -48,10 +50,16 @@ def run_game():
 				if event.key == pygame.K_SPACE:
 					bird.jump()
 
-		update_data_labels(gameDisplay, dt, game_time, label_font) 
 		pipes.update(dt)
-		bird.update(dt)
+		bird.update(dt, pipes.pipes)
 
+		if bird.state == BIRD_DEAD:
+			pipes.create_new_set()
+			game_time = 0
+			bird = Bird(gameDisplay)
+			num_lives += 1
+
+		update_data_labels(gameDisplay, dt, game_time, num_lives, label_font)
 		pygame.display.update()
 
 
