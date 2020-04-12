@@ -7,10 +7,13 @@ class Pipe():
 		self.gameDisplay = gameDisplay
 		self.state = PIPE_MOVING
 		self.pipe_type = pipe_type
-		self.img = pygame.image.load(PIPE_FILENAME)
-		self.rect = self.img.get_rect()
 		if pipe_type == PIPE_UPPER:
+			self.img = pygame.image.load(PIPE_UPPER_FILENAME)
+			self.rect = self.img.get_rect()
 			y = y-self.rect.height
+		if pipe_type == PIPE_LOWER:
+			self.img = pygame.image.load(PIPE_LOWER_FILENAME)
+			self.rect = self.img.get_rect()
 		self.set_position(x, y)
 
 	def set_position(self, x, y):
