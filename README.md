@@ -10,6 +10,9 @@ This is my very first start at trying out any sort of machine learning or artifi
 2. Go into the project directory and install the required packages: `$ pip3 install -r requirements.txt`
 3. Run the program `$ python3 src/main.py`
 
+## How to play
+
+The premise of this game is to survive for as long as possible. Press **space** to jump. Press **esc** to quit the game.
 
 ## _master_ and _no-ai_ branches 
 
