@@ -59,7 +59,7 @@ def run_game():
 				record_time = game_time
 			pipes.create_new_set()
 			game_time = 0
-			birds.create_new_generation()
+			birds.evolve_population()
 			num_iterations += 1
 
 		update_data_labels(gameDisplay, dt, game_time, record_time, num_iterations, num_alive, label_font)
