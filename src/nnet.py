@@ -45,8 +45,6 @@ class Nnet:
 		num_to_take = total_entries - int(total_entries * MUTATION_ARRAY_MIX_PERC)
 		idx = np.random.choice(np.arange(total_entries), num_to_take, replace=False)
 
-		print('idx', idx)
-
 		res = np.random.rand(num_rows, num_cols)
 
 		for row in range(0, num_rows):
@@ -58,21 +56,3 @@ class Nnet:
 					res[row][col] = ar2[row][col]
 
 		return res
-	
-def tests():
-	ar1 = np.random.uniform(-0.5, 0.5, size=(3, 4))
-	ar2 = np.random.uniform(-0.5, 0.5, size=(3, 4))
-	print('ar1.size', ar1.size, sep='\n')
-	print('ar1', ar1, sep='\n')
-
-	Nnet.modify_array(ar1)
-	print('ar1', ar1, sep='\n')
-	print('')
-	print('ar1', ar1, sep='\n')
-	print('ar2', ar2, sep='\n')
-
-	mixed = Nnet.get_mix_from_arrays(ar1, ar2)
-	print('mixed', mixed, sep='\n')
-
-if __name__ == '__main__':
-	tests()

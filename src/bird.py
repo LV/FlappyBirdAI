@@ -132,7 +132,7 @@ class BirdCollection():
 		for b in self.birds[0:5]:
 			print('fitness:', b.fitness)
 
-		cut_off = int(len(self.birds) = MUTATION_CUT_OFF)
+		cut_off = int(len(self.birds) * MUTATION_CUT_OFF)
 		good_birds = self.birds[0:cut_off]
 		bad_birds = self.birds[cut_off:]
 		num_bad_to_take = int(len(self.birds) * MUTATION_BAD_TO_KEEP)
@@ -147,14 +147,13 @@ class BirdCollection():
 			new_birds.append(bad_birds[index])
 
 		new_birds.extend(good_birds)
-		children_needed = len(self.birds) - len(new_birds)
 
 		while len(new_birds) < len(self.birds):
 			idx_to_breed = np.random.choice(np.arange(len(good_birds)), 2, replace=False)
 			if idx_to_breed[0] != idx_to_breed[1]:
 				new_bird = Bird.create_offspring(good_birds[idx_to_breed[0]], good_birds[idx_to_breed[1]], self.gameDisplay)
-				if random.random() < MUTATOIN_MODIFY_CHANCE_LIMIT:
-					newbird.nnet.modify_weights()
+				if random.random() < MUTATION_MODIFY_CHANCE_LIMIT:
+					new_bird.nnet.modify_weights()
 				new_birds.append(new_bird)
 		
 		for b in new_birds:
