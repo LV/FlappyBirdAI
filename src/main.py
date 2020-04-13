@@ -8,12 +8,13 @@ def update_label(data, title, font, x, y, gameDisplay):
 	gameDisplay.blit(label, (x,y))
 	return y
 
-def update_data_labels(gameDisplay, dt, game_time, num_iterations, num_alive, font):
+def update_data_labels(gameDisplay, dt, game_time, record_time, num_iterations, num_alive, font):
 	y_pos = 10
 	gap = 20
 	x_pos = 10
 	y_pos = update_label(round(1000/dt,2), 'FPS', font, x_pos, y_pos + gap, gameDisplay)
 	y_pos = update_label(round(game_time/1000,2), 'Game time', font, x_pos, y_pos + gap, gameDisplay)
+	y_pos = update_label(round(record_time/1000,2), 'Record time', font, x_pos, y_pos + gap, gameDisplay)
 	y_pos = update_label(num_iterations, 'Iterations', font, x_pos, y_pos + gap, gameDisplay)
 	y_pos = update_label(num_alive, 'Alive', font, x_pos, y_pos + gap, gameDisplay)
 
@@ -34,6 +35,7 @@ def run_game():
 	clock = pygame.time.Clock()
 	dt = 0
 	game_time = 0
+	record_time = 0
 	num_iterations = 1
 
 	while running:
@@ -53,12 +55,14 @@ def run_game():
 		num_alive = birds.update(dt, pipes.pipes)
 
 		if num_alive == 0:
+			if game_time > record_time:
+				record_time = game_time
 			pipes.create_new_set()
 			game_time = 0
 			birds.create_new_generation()
 			num_iterations += 1
 
-		update_data_labels(gameDisplay, dt, game_time, num_iterations, num_alive, label_font)
+		update_data_labels(gameDisplay, dt, game_time, record_time, num_iterations, num_alive, label_font)
 		pygame.display.update()
 
 
