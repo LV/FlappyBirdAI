@@ -34,3 +34,6 @@ The inputs are demonstrated by the following photo:
 
 ![input demonstration](https://i.imgur.com/CGIYk63.png "Input demonstration")
 
+The following diagram demonstrates how the neural network works (the actual program uses 5 hidden layers instead of 3):
+
+![neural network diagram](https://i.imgur.com/BDmD0pa.png)
